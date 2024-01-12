@@ -1,0 +1,33 @@
+class NTM:
+    def __init__(self, input_size, output_size, memory_size):
+        # Initialize neural network parameters
+        self.controller = NeuralNetwork(input_size + memory_size, output_size)
+        self.memory = ExternalMemoryMatrix(memory_size)
+        self.read_heads = [ReadHead(memory_size) for _ in range(num_read_heads)]
+        self.write_heads = [WriteHead(memory_size) for _ in range(num_write_heads)]
+
+    def forward(self, input_data):
+        # Concatenate input_data with read content from memory
+        read_content = [read_head.read(self.memory) for read_head in self.read_heads]
+        concatenated_input = concatenate(input_data, read_content)
+
+        # Pass concatenated input through the controller
+        controller_output = self.controller.forward(concatenated_input)
+
+        # Separate controller output into read and write instructions
+        read_instructions, write_instructions = split(controller_output)
+
+        # Perform read and write operations on memory using instructions
+        for i, read_head in enumerate(self.read_heads):
+            read_head.update(read_instructions[i])
+
+        for i, write_head in enumerate(self.write_heads):
+            write_head.update(write_instructions[i])
+
+        # Return output based on controller's output
+        return controller_output
+
+# Example Usage
+ntm = NTM(input_size=10, output_size=5, memory_size=20)
+input_data = [0.1, 0.2, 0.3, 0.4, 0.5]
+output = ntm.forward(input_data)
