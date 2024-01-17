@@ -27,7 +27,3 @@ class NTM:
         # Return output based on controller's output
         return controller_output
 
-# Example Usage
-ntm = NTM(input_size=10, output_size=5, memory_size=20)
-input_data = [0.1, 0.2, 0.3, 0.4, 0.5]
-output = ntm.forward(input_data)
