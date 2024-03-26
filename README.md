@@ -2,5 +2,4 @@
 - 👀 I’m interested in game development and general design
 - 🌱 I’m currently a software engireening student
 - 💞️ I’m looking to collaborate on making projects and gain experience
-- social links:
-- https://driss-bouadoud-profile-links.netlify.app/
+- social links: https://driss-bouadoud-profile-links.netlify.app/
